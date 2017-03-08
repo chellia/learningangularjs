@@ -1,0 +1,38 @@
+<h3>Manage Menu Items</h3>
+<form class="well">
+
+    <input ng-model="newmenuitem.code" placeholder="Enter Code">
+    <input ng-model="newmenuitem.name" placeholder="Enter name">
+    <input ng-model="newmenuitem.price" placeholder="Enter Price">
+    <input ng-model="newmenuitem.description" placeholder="Enter Desc">
+    <button class="btn btn-primary" ng-click="save(currentIndex)">Add</button>
+
+</form>
+<table class="table table-bordered table-striped table-condensed">
+             <tr>
+                <th>Code
+                </th>
+                <th>Name
+                </th>    
+                <th>Price
+                </th>
+                <th>Description
+                </th>
+                 <th>Action
+                </th>
+            </tr>
+            <tr ng-repeat="menuitem in itemList">
+                <td>{{menuitem.code}}
+                </td>
+                <td>{{menuitem.name}}
+                </td>
+                <td>{{menuitem.price}}
+                </td>    
+                <td>{{menuitem.description | truncate:5}}
+                </td>
+                 <td><button class="btn btn-danger" ng-click="delete($index)">Delete</button>
+                     <button class="btn btn-info" ng-click="populate(menuitem,$index)">Edit</button>
+                </td>
+                
+            </tr>
+</table>

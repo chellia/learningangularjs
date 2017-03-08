@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <title>MenuApp</title>
+       <script src="js/angular.js"></script>
+       <script src="js/angular-sanitize.js"></script>
+       <script src="js/angular-route.js"></script>
+       <script src="js/menuapp.js"></script>
+       <script src="js/appcontroller.js"></script>
+        <script src="js/appservices.js"></script>
+       <script src="js/appfactories.js"></script>
+       <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+       <link rel="stylesheet" href="css/bootstrap.css"/>
+   </head>
+    <body class="container" ng-app="menuApp" ng-controller="MainController">
+        <!--<h1>Restaurant Digital Application {{pageHeading}}</h1>-->
+        <h1 ng-bind-html="pageHeading"></h1>
+        <a href="#!/">Home</a> |
+        <a href="#!/menucard">Menu</a> |
+        <a href="#!/manage">Manage</a> |
+        <hr>
+        <ng-view></ng-view>
+        
+        
+        
+    </body>
+</html>
