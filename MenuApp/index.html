@@ -5,6 +5,8 @@
        <script src="js/angular.js"></script>
        <script src="js/angular-sanitize.js"></script>
        <script src="js/angular-route.js"></script>
+       <script src="js/angular-resource.js"></script>
+        <script src="js/angular-messages.js"></script>
        <script src="js/menuapp.js"></script>
        <script src="js/appcontroller.js"></script>
         <script src="js/appservices.js"></script>
@@ -17,7 +19,10 @@
         <h1 ng-bind-html="pageHeading"></h1>
         <a href="#!/">Home</a> |
         <a href="#!/menucard">Menu</a> |
-        <a href="#!/manage">Manage</a> |
+        <a href="#!/manage" ng-show="isLogin">Manage</a> |
+        <a href="#!/login" ng-hide="isLogin">Login</a> |
+        <a href="#!/logout" ng-show="isLogin">Logout</a> |
+        <a href="#!/signup" ng-hide="isLogin">SignUp</a>
         <hr>
         <ng-view></ng-view>
         

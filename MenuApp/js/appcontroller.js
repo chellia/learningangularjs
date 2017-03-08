@@ -1,11 +1,51 @@
 var ctrl = angular.module("CtrlModule", ["SvcModule"]);
-ctrl.controller("MainController", function($scope){
+ctrl.controller("MainController", function($scope,$location,$rootScope){
     console.log("Main Controller Registerd...");
     
-    $scope.pageHeading = "<u>Digital Restaurant</u>"
+    $scope.pageHeading = "<u>Digital Restaurant</u>";
+    
+    $scope.$on("$routeChangeSuccess",function(){
+        
+        console.log("Route Change Success "+$location.path());
+        if($location.path() == "/logout"){
+            $rootScope.isLogin = false;
+        }
+    });
+    
+     $scope.$on("$routeChangeStart",function(){
+        
+        console.log("Route start Success");
+        
+        if(!$rootScope.isLogin){
+            if($location.path() == "/manage"){
+                $location.path("/login");
+            }
+        }
+    });
     
     
+});
+
+ctrl.controller("LoginController",function($scope,$location,$rootScope){
+    
+    $scope.doLogin = function(){
+        
+        if($scope.login.username == "admin"){
+            $location.path("/manage");
+            $rootScope.isLogin = true;
+        }else{
+            $rootScope.isLogin = false;
+            $location.path("/error")
+        }
+    }
+    
+});
+
+ctrl.controller("signupcontroller",function($scope){
+    $scope.stateList = [ {"stateId": 1, "name":"TN"},
+        {"stateId": 2 , "name":"KA"}];
 })
+
 ctrl.config(function(){
     console.log("Ctrl Config")
 })
@@ -16,6 +56,8 @@ ctrl.run(function(){
 ctrl.controller("MenuController",function($scope,MenuService,OrderService){
     
     $scope.currentIndex;
+    
+    $scope.currentId;
     
     $scope.itemList = MenuService.getAllMenuItems();
     
@@ -30,13 +72,14 @@ ctrl.controller("MenuController",function($scope,MenuService,OrderService){
         $scope.currentIndex = null;
     }
     
-    $scope.delete = function(index){
-        MenuService.deleteItem(index);
+    $scope.delete = function(index,id){
+        MenuService.deleteItem(index,id);
     }
     
-    $scope.populate = function(menuitem,currentIndex){        
+    $scope.populate = function(menuitem,currentIndex,id){        
         $scope.newmenuitem = angular.copy(menuitem);
         $scope.currentIndex = currentIndex;
+        $scope.currentId = id;
     }
         
         

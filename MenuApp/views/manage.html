@@ -30,8 +30,8 @@
                 </td>    
                 <td>{{menuitem.description | truncate:5}}
                 </td>
-                 <td><button class="btn btn-danger" ng-click="delete($index)">Delete</button>
-                     <button class="btn btn-info" ng-click="populate(menuitem,$index)">Edit</button>
+                 <td><button class="btn btn-danger" ng-click="delete($index,menuitem.id)">Delete</button>
+                     <button class="btn btn-info" ng-click="populate(menuitem,$index,menuitem.id)">Edit</button>
                 </td>
                 
             </tr>

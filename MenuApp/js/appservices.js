@@ -12,8 +12,8 @@ s.service("MenuService", function(MenuFactory){
         
     }
     
-    this.deleteItem = function(index){
-        MenuFactory.deleteItem(index);
+    this.deleteItem = function(index,id){
+        MenuFactory.deleteItem(index,id);
     }
 })
 

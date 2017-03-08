@@ -1,23 +1,48 @@
-var f = angular.module("FactModule",[]);
+var f = angular.module("FactModule",["ngResource"]);
 
-f.factory("MenuFactory",function(){
+f.factory("MenuFactory",function($resource){
     
     var menuItems ;
+    
+    var menuResource = $resource("http://localhost:2403/menuitems/",{"id":"@mid"});
     return {        
         getMenuItems: function(){
+            menuItems = menuResource.query();
             return menuItems;
         },
         addNewItem: function(item,index){
+            
             if(index != null)
                 {
-                    menuItems[index] = item;
+                     menuResource.save(item,function(data){
+                       console.log("Update Success"); 
+                       menuItems[index] = item;
+                    },
+                    function(err){
+                        console.log("Save Error",err);
+                    }
+                                     );
+                    
+                    
                 }else{
-                    menuItems.push(item);
+                    menuResource.save(item,function(data){
+                       console.log("Save Success"); 
+                       menuItems.push(data);
+                    },
+                    function(err){
+                        console.log("Save Error",err);
+                    }
+                                     );                    
                 }
             
         },
-        deleteItem: function(id){
-            menuItems.splice(id,1);
+        deleteItem: function(index,id){
+            menuResource.delete({"id":id},function(){
+                menuItems.splice(index,1);
+            },function(){
+                
+            });
+            
         }
         
     }

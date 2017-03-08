@@ -1,0 +1,24 @@
+<h2>Enter customer details</h2>
+
+<form name="userform">
+    
+    <input ng-model="user.name" name="uname" placeholder="Enter Name" ng-maxlength="2" ng-required="true">
+    <span ng-messages="userform.uname.$error" ng-show="userform.uname.$dirty">
+    <b style="color:Red" ng-message="required">Required</b>
+        <b style="color:Red" ng-message="maxlength">ONly 2 char is allowd</b>
+    </span>
+    <br>
+    
+    <input type="text" name="contactno" ng-model="user.contactno" placeholder="Enter no" ng-required="true" ng-pattern="/^[789]\d{9}$/">
+     <span ng-messages="userform.contactno.$error" ng-show="userform.contactno.$dirty">
+    <b style="color:Red" ng-message="required">Contact no Required</b>
+        <b style="color:Red" ng-message="pattern">Invalid</b>
+    </span>
+    <br>
+    
+    <select name="state" ng-model="userstate" ng-options="state.stateId as state.name for state in stateList"></select>
+    <br>
+    <br>
+    
+    <button type="submit" class="btn btn-primary" ng-disabled="userform.$invalid">Submit</button>
+ </form>
