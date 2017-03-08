@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="serverapp">
+<head>
+    
+    <script src="js/angular.js"></script>
+    <script src="js/angular-resource.js"></script>
+    
+</head>
+    <body>
+        <h3>{{"Rest Service Example"}}</h3>
+        <div ng-controller="HCtrl">
+            <ol>
+                
+                <li ng-repeat="e in items">{{e.name}}</li>
+            </ol> 
+            
+        
+        </div>
+        
+        <div ng-controller="RCtrl">
+            <ol>
+                
+                <li ng-repeat="e in results">{{e.name}}</li>
+            </ol> 
+            
+        
+        </div>
+        <script>
+            
+            var m = angular.module("serverapp",["ngResource"]);
+            
+            m.controller("HCtrl",function($http,$scope){
+                $scope.items;
+                $http.get("http://localhost:2403/menuitems/").then(
+                function(response){
+                    console.log("Success:",response);
+                    console.log("Success:",response.data);
+                    $scope.items = response.data;
+                },function(responseErr){
+                    console.log("Error:",responseErr);
+                });
+                
+            });
+            
+            m.controller("RCtrl",function($resource,$scope){
+                
+                $resource("http://localhost:2403/menuitems/").query(
+                function(res){
+                    $scope.results = res;
+                },
+                function(res){
+                    
+                }
+                
+                );
+                
+            })
+        
+        </script>
+    
+    </body>
+</html>
